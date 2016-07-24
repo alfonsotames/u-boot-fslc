@@ -128,8 +128,8 @@
 		"setenv nextcon 0; " \
 		"if hdmidet; then " \
 			"setenv bootargs ${bootargs} " \
-				"video=mxcfb${nextcon}:dev=hdmi,1280x720M@60," \
-					"if=RGB24; " \
+				"video=mxcfb${nextcon}:dev=hdmi,1920x1080M@60," \
+					"if=RGB24,bpp=32; " \
 			"setenv fbmen fbmem=28M; " \
 			"setexpr nextcon ${nextcon} + 1; " \
 		"else " \
