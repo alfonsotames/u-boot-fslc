@@ -107,7 +107,7 @@
 	"ip_dyn=yes\0" \
 	"mmcdev=" __stringify(CONFIG_SYS_MMC_ENV_DEV) "\0" \
 	"mmcpart=1\0" \
-	"mmcroot=/dev/mmcblk0p2 rootwait rw\0" \
+	"mmcroot=/dev/mmcblk2p2 rootwait rw\0" \
 	"update_sd_firmware_filename=u-boot.imx\0" \
 	"update_sd_firmware=" \
 		"if test ${ip_dyn} = yes; then " \
@@ -128,8 +128,8 @@
 		"setenv nextcon 0; " \
 		"if hdmidet; then " \
 			"setenv bootargs ${bootargs} " \
-				"video=mxcfb${nextcon}:dev=hdmi,1280x720M@60," \
-					"if=RGB24; " \
+				"video=mxcfb${nextcon}:dev=hdmi,1920x1080M@60," \
+					"if=RGB24,bpp=32; " \
 			"setenv fbmen fbmem=28M; " \
 			"setexpr nextcon ${nextcon} + 1; " \
 		"else " \
@@ -196,10 +196,14 @@
 			"bootz; " \
 		"fi;\0" \
 	"findfdt="\
-		"if test $board_rev = MX6Q ; then " \
-			"setenv fdtfile imx6q-wandboard.dtb; fi; " \
-		"if test $board_rev = MX6DL ; then " \
-			"setenv fdtfile imx6dl-wandboard.dtb; fi; " \
+		"if test $board_name = MX6Q && test $board_rev = C1 ; then " \
+			"setenv fdtfile imx6q-wandboard-revc1.dtb; fi; " \
+		"if test $board_name = MX6Q && test $board_rev = B1 ; then " \
+			"setenv fdtfile imx6q-wandboard-revb1.dtb; fi; " \
+		"if test $board_name = MX6DL && test $board_rev = C1 ; then " \
+			"setenv fdtfile imx6dl-wandboard-revc1.dtb; fi; " \
+		"if test $board_name = MX6DL && test $board_rev = B1 ; then " \
+			"setenv fdtfile imx6dl-wandboard-revb1.dtb; fi; " \
 		"if test $fdtfile = undefined; then " \
 			"echo WARNING: Could not determine dtb to use; fi; \0" \
 
